@@ -1,0 +1,28 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  
+}
+
+body{
+  background-color: rgb(255, 255, 255);
+
+}
+.border-opacity-10 {
+  border-color: rgba(209, 213, 219, 0.1); /* Adjust as needed */
+}
+.swiper {
+  width: 75vw;
+  height: auto;
+}
+
+.swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #fff;
+}
