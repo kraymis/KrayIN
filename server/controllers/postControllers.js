@@ -1,7 +1,8 @@
 const Post = require('../models/Post');
-const Comment = require('../models/Comment');
 
-// Create a new post
+const Comment = require('../models/Comment');// Create a new post
+const User = require('../models/User');// Create a new post
+
 const createPost = async (req, res) => {
   const { text } = req.body;
 
@@ -15,11 +16,23 @@ const createPost = async (req, res) => {
 };
 
 // Get all posts
-const getPosts = async (req, res) => {
-  const { userId } = req.query; // Get userId from query params
 
+const getPosts = async (req, res) => {
+  const userId = req.user._id; // Get userId from authenticated user
   try {
-    const posts = await Post.find()
+    // Find the user and populate the 'friends' field
+    const user = await User.findById(userId).populate('friends');
+
+    // Check if user was found
+    if (!user) {
+      return res.status(404).json({ error: `User not found with ID: ${userId}` });
+    }
+
+    // Extract friend IDs
+    const friendIds = user.friends.map(friend => friend._id);
+
+    // Find posts by user and their friends
+    const posts = await Post.find({ user: { $in: [...friendIds, userId] } })
       .populate('user', 'name')
       .populate({
         path: 'comments',
@@ -30,7 +43,7 @@ const getPosts = async (req, res) => {
       })
       .sort({ createdAt: -1 });
 
-    // Optionally filter posts or include userLiked in the response
+    // Enrich posts with userLike information
     const enrichedPosts = posts.map(post => ({
       ...post._doc,
       userLiked: post.likes.includes(userId) // Check if user has liked the post
@@ -41,7 +54,6 @@ const getPosts = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-
 
 
 // Like a post
@@ -103,5 +115,6 @@ const addComment = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
 
 module.exports = { createPost, getPosts, likePost, unlikePost, addComment };

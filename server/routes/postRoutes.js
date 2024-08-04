@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createPost, getPosts, likePost, unlikePost, addComment } = require('../controllers/postControllers');
+const { createPost, getPosts, likePost, unlikePost, addComment,ggFunction } = require('../controllers/postControllers');
 const protect = require('../middleware/authMiddleware');
 
 router.post('/', protect, createPost);

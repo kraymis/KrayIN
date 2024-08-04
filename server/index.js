@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const testRoutes = require('./routes/testRoutes'); // Adjust the path if necessary
 
 
 const app = express();
@@ -21,6 +22,10 @@ app.use('/api/auth', require('./routes/Auth'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/task', require('./routes/taskRoutes.js'));
 app.use('/api/posts', require('./routes/postRoutes'));
+app.use('/api/friends', require('./routes/friendRoutes'));
+
+app.use('/api', testRoutes);
+
 
 
 // Start Server
