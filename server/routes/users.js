@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const { searchUsers } = require('../controllers/userControllers');
+
 
 // Get all users (example route)
 router.get('/', async (req, res) => {
@@ -11,5 +13,6 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+router.get('/search', searchUsers);
 
 module.exports = router;

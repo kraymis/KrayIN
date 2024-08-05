@@ -122,3 +122,107 @@ export const addComment = async (postId, commentData) => {
       throw error;
   }
 };
+
+
+
+export const getFriends = async () => {
+    try {
+        const response = await axios.get(`${API_URL}/friends`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Get friends error:', error);
+        throw error;
+    }
+};
+
+export const getFriendRequests = async () => {
+    try {
+        const response = await axios.get(`${API_URL}/friends/requests`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Get friend requests error:', error);
+        throw error;
+    }
+};
+
+export const deleteFriend = async (friendId) => {
+    try {
+        const response = await axios.delete(`${API_URL}/friends/`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+            data: { friendId }  // Send friendId in the body
+        });
+        return response.data;
+    } catch (error) {
+        console.log(friendId)
+        console.error('Delete friend error:', error);
+        throw error;
+    }
+};
+
+export const acceptFriendRequest = async (requesterId) => {
+    try {
+        const response = await axios.post(`${API_URL}/friends/accept`, { requesterId }, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Accept friend request error:', error);
+        throw error;
+    }
+};
+
+export const rejectFriendRequest = async (requesterId) => {
+    try {
+        const response = await axios.post(`${API_URL}/friends/reject`, { requesterId }, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Reject friend request error:', error);
+        throw error;
+    }
+};
+
+
+export const searchUsers = async (query) => {
+    try {
+      const response = await axios.get(`${API_URL}/users/search`, {
+        params: { query },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Search users error:', error);
+      throw error;
+    }
+  };
+  
+  export const sendFriendRequest = async (recipientId) => {
+    try {
+      const response = await axios.post(`${API_URL}/friends/send`, { recipientId }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Send friend request error:', error);
+      throw error;
+    }
+  };

@@ -3,6 +3,22 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 
+// Search users
+const searchUsers = async (req, res) => {
+  const query = req.query.query;
+  try {
+    const users = await User.find({
+      $or: [
+        { name: new RegExp(query, 'i') },
+        { email: new RegExp(query, 'i') },
+      ],
+    }).select('_id name');
+    res.status(200).json(users);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 const registerUser = async (req, res) => {
     try {
       const { name, email, password } = req.body;
@@ -75,4 +91,5 @@ module.exports = {
   registerUser,
   loginUser,
   getMe,
+  searchUsers
 };

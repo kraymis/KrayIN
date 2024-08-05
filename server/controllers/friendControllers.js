@@ -4,7 +4,6 @@ const User = require('../models/User');
 
 // Send friend request
 const sendFriendRequest = async (req, res) => {
-res.status(200).json({ message: 'kayna frr' });
 
   const { recipientId } = req.body;
   const senderId = req.user.id;
@@ -84,8 +83,64 @@ const rejectFriendRequest = async (req, res) => {
 
 
 
+// Show all friend requests
+const showFriendRequests = async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    const user = await User.findById(userId).populate('friendRequests', 'name');
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json(user.friendRequests);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// Delete a friend
+const deleteFriend = async (req, res) => {
+  const userId = req.user.id;
+  const { friendId } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    const friend = await User.findById(friendId);
+
+    if (!user || !friend) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    user.friends = user.friends.filter(id => id.toString() !== friendId);
+    friend.friends = friend.friends.filter(id => id.toString() !== userId);
+
+    await user.save();
+    await friend.save();
+
+    res.status(200).json({ message: 'Friend deleted' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+const getFriends = async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    const user = await User.findById(userId).populate('friends', 'name');
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json(user.friends);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 module.exports = {
+  getFriends,
   sendFriendRequest,
   acceptFriendRequest,
   rejectFriendRequest,
+  showFriendRequests,
+  deleteFriend,
 };
