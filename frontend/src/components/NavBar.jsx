@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import img from "../assets/profile.png"; // Adjust the path if necessary
+// import img from "../assets/profile.png"; // Adjust the path if necessary
 import UserSearch from '../components/UserSearch'; // Adjust the path if necessary
 import { getUserData} from '../services/api';
 import { useNavigate } from 'react-router-dom';
