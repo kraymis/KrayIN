@@ -6,6 +6,7 @@ import Post from '../components/Post';
 import FriendRequests from '../components/FriendRequests'; // Adjust the path if necessary
 import FriendsList from '../components/FriendsList'; // Adjust the path if necessary
 import UserGreeting from '../components/UserGreeting'; // Adjust the path if necessary
+// import UserGreeting from '../components/UserGreeting'; // Adjust the path if necessary
 import Navbar from '../components/NavBar';
 import CreatePostForm from '../components/CreatePostForm';
 
