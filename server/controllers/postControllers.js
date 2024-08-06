@@ -116,5 +116,27 @@ const addComment = async (req, res) => {
   }
 };
 
+const getPostsByUserId = async (req, res) => {
+  const { userId } = req.params;
 
-module.exports = { createPost, getPosts, likePost, unlikePost, addComment };
+  try {
+    console.log(userId);
+    const posts = await Post.find({ user: userId })
+      .populate('user', 'name')
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'user',
+          select: 'name'
+        }
+      })
+      .sort({ createdAt: -1 });
+
+    res.status(200).json(posts);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+
+module.exports = { createPost, getPosts, likePost, unlikePost, addComment,getPostsByUserId };

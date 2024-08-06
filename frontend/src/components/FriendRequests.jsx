@@ -1,15 +1,21 @@
 // FriendRequests.jsx
 import React from 'react';
+import img from '../assets/profile.png'; // Adjust the path if necessary
 
 const FriendRequests = ({ friendRequests, error, onAcceptFriendRequest, onRejectFriendRequest }) => {
   return (
-    <div className="w-2/3 bg-gray-100 p-4 rounded ml-4">
-      <h2 className="text-xl font-bold mb-4">Friend Requests</h2>
+    <div className="p-4 rounded-lg shadow-sm ml-4 mt-2">
+      <h2 className="text-xl font-bold mb-4 text-white">Friend Requests</h2>
       {error && <div className="text-red-500 mb-4">{error}</div>}
       {friendRequests.length > 0 ? (
         friendRequests.map(request => (
-          <div key={request._id} className="flex justify-between items-center mb-2 p-2 bg-white rounded shadow-sm">
-            <span>{request.name}</span>
+          <div key={request._id} className="flex justify-between items-center mb-2 p-2 border-[#DAF1DE] border rounded-2xl shadow-sm">
+            <div className="flex items-center">
+              <div className="h-10 w-10">
+                <img src={request.profileImg || img} alt="Request" className="rounded-full" />
+              </div>
+              <span className="ml-3 text-white font-bold">{request.name}</span>
+            </div>
             <div>
               <button
                 onClick={() => onAcceptFriendRequest(request._id)}
@@ -27,7 +33,7 @@ const FriendRequests = ({ friendRequests, error, onAcceptFriendRequest, onReject
           </div>
         ))
       ) : (
-        <div>No friend requests found.</div>
+        <div className="text-white">No friend requests found.</div>
       )}
     </div>
   );

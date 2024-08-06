@@ -226,3 +226,22 @@ export const searchUsers = async (query) => {
       throw error;
     }
   };
+
+  export const getPostsByUserId = async (userId) => {
+    try {
+      const response = await axios.get(`${API_URL}/posts/${userId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching posts by user ID:', error);
+      throw error;
+    }
+  };
+  export const getUserById = async (userId) => {
+    try {
+      const response = await axios.get(`${API_URL}/users/${userId}`);
+      return response.data;
+    } catch (err) {
+      console.error('Failed to fetch user data', err);
+      throw err;
+    }
+  };

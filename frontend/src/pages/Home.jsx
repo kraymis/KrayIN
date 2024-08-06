@@ -7,6 +7,7 @@ import FriendRequests from '../components/FriendRequests'; // Adjust the path if
 import FriendsList from '../components/FriendsList'; // Adjust the path if necessary
 import UserGreeting from '../components/UserGreeting'; // Adjust the path if necessary
 import Navbar from '../components/NavBar';
+import CreatePostForm from '../components/CreatePostForm';
 
 const Home = () => {
   const [user, setUser] = useState(null);
@@ -16,6 +17,8 @@ const Home = () => {
   const [friendRequests, setFriendRequests] = useState([]);
   const [newPost, setNewPost] = useState('');
   const navigate = useNavigate();
+  const [functionCompleted, setFunctionCompleted] = useState(false);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,11 +27,11 @@ const Home = () => {
         const userData = await getUserData();
         setUser(userData);
         console.log(userData.id);
-        console.log("kraymis")
   
         // Fetch posts with user ID
         const postsData = await getPosts(userData.id);
         setPosts(postsData);
+        console.log(postsData);
 
         const friendsData = await getFriends();
         setFriends(friendsData);
@@ -43,7 +46,7 @@ const Home = () => {
     };
   
     fetchData();
-  }, [navigate]);
+  }, [navigate,functionCompleted]);
 
   const handleLogout = async () => {
     try {
@@ -54,17 +57,7 @@ const Home = () => {
     }
   };
 
-  const handleCreatePost = async () => {
-    if (!newPost) return;
-    try {
-      const postData = { text: newPost };
-      const createdPost = await createPost(postData);
-      setPosts([createdPost, ...posts]);
-      setNewPost('');
-    } catch (err) {
-      console.error('Failed to create post', err);
-    }
-  };
+
   const handleLikePost = async (postId) => {
     try {
       setPosts(posts.map(post => post._id === postId ? { ...post, likes: [...post.likes, user._id], numberOfLikes: post.numberOfLikes + 1, userLiked: true } : post));
@@ -91,6 +84,8 @@ const Home = () => {
       setPosts(posts.map(post =>
         post._id === postId ? { ...post, comments: [...post.comments, comment] } : post
       ));
+      setFunctionCompleted(!functionCompleted);
+
     } catch (err) {
       console.error('Failed to add comment', err);
     }
@@ -131,43 +126,40 @@ const Home = () => {
       console.error('Failed to reject friend request', err);
     }
   };
-
+  const handlePostCreated = (newPost) => {
+    setPosts([newPost, ...posts]); // Add new post to the beginning of the list
+    setFunctionCompleted(!functionCompleted);
+  };
 
 return (
   <>
-  <Navbar user={user}/>
-  <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
-    <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-md text-center">
+  <Navbar onLogout={handleLogout}/>
+  <div className="flex items-start justify-center bg-[#071818]">
+    <div className="w-[25vw] ml-4">
+                <FriendsList
+                  friends={friends}
+                  error={error}
+                  onDeleteFriend={handleDeleteFriend}
+                />
+      </div>
+    <div className=" w-full  p-8 rounded-lg shadow-md text-center flex justify-center  flex-1">
       {/* <UserSearch /> */}
-      <h1 className="text-3xl font-bold mb-6">Khra</h1>
       {error && <ErrorNotification message={error} />}
       {user ? (
-        <div>
+        <div className=''>
           
           <div>
-            <UserGreeting
+            {/* <UserGreeting
               user={user}
               onLogout={handleLogout}
-            />
+            /> */}
             {/* Other components or content */}
           </div>
-          <div className="mt-6">
-            <textarea
-              value={newPost}
-              onChange={(e) => setNewPost(e.target.value)}
-              className="w-full p-2 border rounded mb-4"
-              placeholder="What's on your mind?"
-            />
-            <button
-              onClick={handleCreatePost}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-              Post
-            </button>
+          <div>
+            <CreatePostForm user={user} onPostCreated={handlePostCreated} />
           </div>
 
-          <div className="mt-6 flex">
-                {/* Friends list */}
+          {/* <div className="mt-6 flex">
               <div className="flex">
                 <FriendsList
                   friends={friends}
@@ -176,17 +168,9 @@ return (
                 />
               </div>
 
-              {/* Friend requests */}
-              <div className="flex">
-                <FriendRequests
-                  friendRequests={friendRequests}
-                  error={error}
-                  onAcceptFriendRequest={handleAcceptFriendRequest}
-                  onRejectFriendRequest={handleRejectFriendRequest}
-                />
-              </div>
+
               
-          </div>
+          </div> */}
 
           {/* <PostList posts={posts}/> */}
           <div className="mt-6">
@@ -201,11 +185,22 @@ return (
               ))}
           </div>
 
+
         </div>
+        
+        
       ) : (
         <p>Please log in to see the content.</p>
       )}
     </div>
+    <div className="w-[25vw] mr-4">
+                <FriendRequests
+                  friendRequests={friendRequests}
+                  error={error}
+                  onAcceptFriendRequest={handleAcceptFriendRequest}
+                  onRejectFriendRequest={handleRejectFriendRequest}
+                />
+      </div>
   </div>
   </>
 );

@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@fontsource/poppins": "^5.0.14",
     "express-async-handler": "^1.2.0"
   }
 }
