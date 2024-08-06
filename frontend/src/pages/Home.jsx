@@ -6,6 +6,7 @@ import Post from '../components/Post';
 import FriendRequests from '../components/FriendRequests'; // Adjust the path if necessary
 import FriendsList from '../components/FriendsList'; // Adjust the path if necessary
 import UserGreeting from '../components/UserGreeting'; // Adjust the path if necessary
+import Navbar from '../components/NavBar';
 
 const Home = () => {
   const [user, setUser] = useState(null);
@@ -133,9 +134,11 @@ const Home = () => {
 
 
 return (
+  <>
+  <Navbar user={user}/>
   <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
     <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-md text-center">
-      <UserSearch />
+      {/* <UserSearch /> */}
       <h1 className="text-3xl font-bold mb-6">Khra</h1>
       {error && <ErrorNotification message={error} />}
       {user ? (
@@ -204,7 +207,7 @@ return (
       )}
     </div>
   </div>
+  </>
 );
 };
-
 export default Home;
