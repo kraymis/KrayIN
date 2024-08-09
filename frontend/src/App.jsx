@@ -5,7 +5,9 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ProfilePage from './pages/ProfilePage';
 import { getUserData } from './services/api';
+import ChatPage from './pages/ChatPage';
 import ProtectedRoute from './components/ProtectedRoute'; // Import the ProtectedRoute component
+
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -36,6 +38,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/chat" element={<ChatPage user={currentUser} />} />
         <Route path="/profile/:userId" element={<ProfilePage currentUser={currentUser} />} />
       </Routes>
     </Router>
