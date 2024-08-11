@@ -12,7 +12,7 @@ const Comment = ({ comment }) => {
   };
 
   return (
-    <div className="flex flex-col p-4 mb-2 border-t border-b border-gray-200 rounded-lg bg-[#235347] shadow-sm" style={{borderOpacity: 0.2}}>
+    <div className="flex flex-col p-4 mb-2 border-t border-b border-[#9457eb] rounded-lg bg-transparent shadow-sm" style={{borderOpacity: 0.2}}>
 
       <div className='flex justify-between items-center'>
       <div className="flex items-center justify-center ">
@@ -27,7 +27,7 @@ const Comment = ({ comment }) => {
           </strong>
       </div>
       <div className="">
-          <span className="text-gray-400 text-sm">
+          <span className="text-[#f0f0ff] text-sm">
             {new Date(comment.createdAt).toLocaleDateString()}
           </span>
       </div>

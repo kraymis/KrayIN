@@ -19,7 +19,7 @@ const CreatePostForm = ({ user, onPostCreated }) => {
   };
 
   return (
-    <div className="bg-[#235347] py-4 px-4 rounded-lg w-[35vw]">
+    <div className="bg-transparent border-[#9457eb] border-2 py-4 px-4 rounded-lg w-[35vw]">
       <div className='flex flex-col items-center justify-center mb-8'>
         <p className='text-white text-[1.8vw] font-bold'>Créer une publication</p>
         <div className='w-[80%] rounded-2xl h-1 bg-white'></div> {/* White line */}
@@ -33,12 +33,12 @@ const CreatePostForm = ({ user, onPostCreated }) => {
       <textarea
         value={newPost}
         onChange={(e) => setNewPost(e.target.value)}
-        className="w-full p-2 border rounded mb-4 bg-[#DAF1DE] focus:outline-none focus:ring-0 text-[#333]"
+        className="w-full p-2 border rounded mb-4 bg-[#f0f0ff] focus:outline-none focus:ring-0 text-[#333]"
         placeholder="What's on your mind?"
       />
       <button
         onClick={handleCreatePost}
-        className="bg-[#8EB69B] hover:bg-[#0B2B26] w-full text-white font-bold py-2 mb-2 px-4 rounded-lg focus:outline-none focus:shadow-outline"
+        className="bg-[#9457eb] hover:bg-[#4a2574] w-full text-white font-bold py-2 mb-2 px-4 rounded-lg focus:outline-none focus:shadow-outline"
       >
         Post
       </button>

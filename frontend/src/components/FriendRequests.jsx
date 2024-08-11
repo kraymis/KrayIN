@@ -9,7 +9,7 @@ const FriendRequests = ({ friendRequests, error, onAcceptFriendRequest, onReject
       {error && <div className="text-red-500 mb-4">{error}</div>}
       {friendRequests.length > 0 ? (
         friendRequests.map(request => (
-          <div key={request._id} className="flex justify-between items-center mb-2 p-2 border-[#DAF1DE] border rounded-2xl shadow-sm">
+          <div key={request._id} className="flex justify-between items-center mb-2 p-2 border-[#9457eb] hover:border-0 hover:bg-[#4a2574] border rounded-2xl shadow-sm">
             <div className="flex items-center">
               <div className="h-10 w-10">
                 <img src={request.profileImg || img} alt="Request" className="rounded-full" />

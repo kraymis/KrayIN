@@ -20,7 +20,7 @@ const Post = ({ post, onLike, onUnlike, onAddComment }) => {
   };
 
   return (
-    <div className="mb-4 p-4 rounded-xl w-[35vw] bg-[#235347] shadow-sm flex flex-col ">
+    <div className="mb-4 p-4 rounded-xl w-[35vw] bg-transparent border-2 border-[#9457eb] shadow-sm flex flex-col ">
         <div className='flex justify-between px-2 py-4'>
         <div className='flex justify-start items-center gap-2 mb-6'>
           <div className='h-[2.5vh] w-[2.5vw] flex justify-start items-center'>
@@ -28,10 +28,10 @@ const Post = ({ post, onLike, onUnlike, onAddComment }) => {
           </div>
           <p onClick={() => navigateToUser(post.user._id)} className="font-bold cursor-pointer text-white">{post.user.name}</p>
         </div>
-        <p className="text-[#fff8f8] text-left">{formatDate(post.createdAt)}</p>
+        <p className="text-[#f0f0ff] text-left">{formatDate(post.createdAt)}</p>
         </div>
       <div className='flex items-start w-[95%]'>
-      <p className="mb-2 text-[#fff8f8] text-left ml-4">{post.text}</p>
+      <p className="mb-2 text-[#f0f0ff] text-left ml-4">{post.text}</p>
       </div>
       <div className="flex flex-col items-center mb-4">
   {/* Top border line */}
@@ -43,7 +43,7 @@ const Post = ({ post, onLike, onUnlike, onAddComment }) => {
     {/* Like/Unlike button */}
     <button
       onClick={() => post.userLiked ? onUnlike(post._id) : onLike(post._id)}
-      className={`flex-1 py-2 rounded-2xl ${post.userLiked ? 'bg-[#0b2b26] text-white' : 'bg-transparent text-[#DAF1DE]'} font-bold border border-[#DAF1DE] hover:bg-green-100 hover:text-green-700 transition-all duration-300`}
+      className={`flex-1 py-2 rounded-2xl ${post.userLiked ? 'bg-[#9457eb] text-[#f0f0ff]' : 'bg-transparent text-[#9457eb]'} font-bold border border-[#9457eb] hover:bg-[#9457eb] hover:text-[#f0f0ff] transition-all duration-300`}
     >
       {post.userLiked ? 'Unlike' : 'Like'} ({post.numberOfLikes})
     </button>
@@ -54,7 +54,7 @@ const Post = ({ post, onLike, onUnlike, onAddComment }) => {
     {/* Show/Hide comments button */}
     <button
       onClick={handleCommentToggle}
-      className="flex-1 py-2 rounded-2xl bg-transparent text-[#DAF1DE] font-bold border border-[#DAF1DE] hover:bg-green-100 hover:text-green-700 transition-all duration-300"
+      className="flex-1 py-2 rounded-2xl bg-transparent text-[#9457eb] font-bold border border-[#9457eb] hover:bg-[#9457eb] hover:text-[#f0f0ff] transition-all duration-300"
     >
       {showComments ? 'Hide Comments' : 'Show Comments'}
     </button>
@@ -69,7 +69,7 @@ const Post = ({ post, onLike, onUnlike, onAddComment }) => {
         <div className='flex flex-col gap-2'>
           <textarea
             placeholder="Add a comment..."
-            className="w-full p-2 px-4 border rounded-2xl outline-none mb-2 bg-[#DAF1DE] text-[#333]"
+            className="w-full p-2 px-4 border rounded-2xl outline-none mb-2 bg-[#f0f0ff] text-[#333]"
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 onAddComment(post._id, e.target.value);

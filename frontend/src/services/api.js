@@ -245,3 +245,18 @@ export const searchUsers = async (query) => {
       throw err;
     }
   };
+
+  export const fetchAllMessages = async () => {
+    try {
+        const response = await axios.get(`${API_URL}/chat/getMessages`, {
+            // Include any required headers here
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}` // Adjust based on your auth method
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching messages:', error);
+        throw error;
+    }
+};

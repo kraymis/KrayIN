@@ -98,6 +98,7 @@ app.use('/api/users', require('./routes/users'));
 app.use('/api/task', require('./routes/taskRoutes.js'));
 app.use('/api/posts', require('./routes/postRoutes'));
 app.use('/api/friends', require('./routes/friendRoutes'));
+app.use('/api/chat', require('./routes/chatRoutes'));
 app.use('/api', testRoutes);
 
 // Start Server

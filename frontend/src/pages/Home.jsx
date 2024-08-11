@@ -135,7 +135,7 @@ const Home = () => {
 return (
   <>
   <Navbar onLogout={handleLogout}/>
-  <div className="flex items-start justify-center bg-[#071818]">
+  <div className="flex items-start justify-center bg-[#0f0822]">
     <div className="w-[25vw] ml-4">
                 <FriendsList
                   friends={friends}

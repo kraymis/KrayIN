@@ -9,7 +9,7 @@ const FriendsList = ({ friends, error, onDeleteFriend }) => {
       {error && <div className="text-red-500 mb-4">{error}</div>}
       {friends.length > 0 ? (
         friends.map(friend => (
-          <div key={friend._id} className="flex justify-between items-center mb-2 p-2 rounded-2xl border-[#DAF1DE] border shadow-sm">
+          <div key={friend._id} className="flex justify-between items-center mb-2 p-2 rounded-2xl border-[#9457eb] hover:border-0 hover:bg-[#4a2574]  border shadow-sm">
             <div className="flex items-center">
               <div className="h-10 w-10">
                 <img src={friend.profileImg || img} alt="Friend" className="rounded-full" />

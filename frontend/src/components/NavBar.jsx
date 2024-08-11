@@ -26,10 +26,10 @@ const Navbar = ({onLogout}) => {
   }
 
   return (
-    <nav className="relative bg-[#235347] p-16 flex justify-between items-center h-[15vh]">
+    <nav className="relative bg-[#4a2574] p-16 flex justify-between items-center h-[15vh]">
       {/* Logo */}
       <div className="text-white text-2xl font-bold">
-        <h3 className='text-[2.5vw]'>Kray<span className='text-[#8EB69B]'>IN</span></h3>
+        <h3 className='text-[2.5vw]'>Kray<span className='text-[#9e72c3]'>IN</span></h3>
       </div>
 
       {/* Search Bar */}
@@ -39,8 +39,8 @@ const Navbar = ({onLogout}) => {
 
       {/* Profile Section */}
       <div className='flex justify-between items-center gap-3 h-auto w-auto'>
-      <div className="flex items-center justify-between cursor-pointer bg-[#DAF1DE] p-2 px-6 border rounded-lg text-[#051F20] h-[6vh] " onClick={handleProfileClick}>
-        <img src={user.profileImg || img} alt="Profile" className="h-8 w-8 rounded-full mr-2" />
+      <div className="flex items-center justify-between cursor-pointer border-2 text-[#0f0822] hover:text-[#f0f0ff] bg-[#f0f0ff] p-2 px-6 rounded-lg hover:border-[#9457eb] hover:bg-[#9457eb] h-[6vh] " onClick={handleProfileClick}>
+        <img src={user.profileImg || img} alt="Profile" className="h-8 w-8 rounded-full mr-2 " />
         <span className=" font-bold">{user.name}</span>
       </div>
       <button

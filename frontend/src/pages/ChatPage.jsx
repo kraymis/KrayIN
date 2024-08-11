@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import io from 'socket.io-client';
-import Chat from '../components/Chat'; // Adjust the import path as necessary
+import Chat from '../components/Chat';
 
 const socket = io('http://localhost:5000', {
   auth: { token: localStorage.getItem('token') }
@@ -13,8 +13,7 @@ const ChatPage = ({ user }) => {
   }, []);
 
   return (
-    <div>
-      <h1>Chat</h1>
+    <div className="flex h-screen">
       <Chat socket={socket} user={user} />
     </div>
   );
