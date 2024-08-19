@@ -3,8 +3,12 @@ import { getFriends, fetchAllMessages, getUserData} from '../services/api';
 import { IoIosSend } from 'react-icons/io';
 import imgsearch from '../assets/chercher.png';
 import DiscussionBar from './DiscussionBar';
+import imggauche from '../assets/gauche.png';
+import { useNavigate } from 'react-router-dom';
+
 
 const Chat = ({ socket, user }) => {
+  const navigate = useNavigate();
   const [friends, setFriends] = useState([]);
   const [searching, setSearching] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
@@ -41,6 +45,7 @@ const Chat = ({ socket, user }) => {
   
     fetchFriends();
     console.log("use effect ran");
+
   
     socket.on('chatMessage', (msg) => {
 
@@ -149,13 +154,21 @@ let counter = 0;
       };
     }
   };
+  const navigateBack = () => {
+    navigate(`/`); // Navigate to the user's profile page
+  };
 
   return (
     <div className="flex w-full h-full">
       {/* Left Sidebar */}
       <div className="w-1/3 bg-[#170f2d] p-4">
         <div className="flex h-[10vh] justify-between items-center px-6">
+          <div className='flex justify-start items-center gap-6'>
+          <div className='h-[2vh] w-[2vw] flex justify-center items-center hover:scale-125 transition-transform duration-300'>
+            <img src={imggauche} alt="Left" onClick={()=>{navigateBack()}}/>
+          </div>
           <h2 className="text-white font-bold text-2xl">Chats</h2>
+          </div>
           <button className="text-white flex justify-center items-center " onClick={toggleSearch}>
             <div className='h-[1.5vh] w-[1.5vw] flex justify-center items-center '>
               <img src={imgsearch} alt="Search" />

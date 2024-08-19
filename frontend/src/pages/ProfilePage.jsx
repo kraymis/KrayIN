@@ -8,6 +8,8 @@ import Navbar from '../components/NavBar';
 import { logout } from '../services/api';
 import { useNavigate } from 'react-router-dom';
 import FriendsList from '../components/FriendsList';
+import messageimg from '../assets/envoyer.png';
+import messageimgwhite from '../assets/envoyerwhite.png';
 
 const ProfilePage = ({ currentUser }) => {
   const navigate = useNavigate();
@@ -17,6 +19,8 @@ const ProfilePage = ({ currentUser }) => {
   const [posts, setPosts] = useState([]);
   const { userId } = useParams(); // Use useParams to get userId from URL
   const [friends, setFriends] = useState([]);
+  const [isHovered, setIsHovered] = useState(false);
+
   
 
   useEffect(() => {
@@ -37,8 +41,15 @@ const ProfilePage = ({ currentUser }) => {
     };
 
     fetchUser();
-  }, [userId, currentUser]); // Add userId and currentUser as dependencies
+  }, [userId, currentUser,posts]); // Add userId and currentUser as dependencies
 
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
   const handleSendFriendRequest = async (userId) => {
     try {
       await sendFriendRequest(userId);
@@ -128,12 +139,19 @@ const ProfilePage = ({ currentUser }) => {
         )}
           {!isCurrentUser && isFriend && (
           <div className='flex justify-center gap-4'>
-          <button
-            onClick={() => handleClickMessage()}
-            className="bg-[#f0f0ff] text-[#4a2574]  hover:bg-[#4a2574] hover:text-white font-bold py-2 px-4 rounded mt-4"
-          >
-            Message
-          </button>
+            <button
+              onClick={() => handleClickMessage()}
+              className="bg-[#f0f0ff] text-[#4a2574] hover:bg-[#4a2574] hover:text-white font-bold py-2 px-4 rounded mt-4 flex items-center gap-2 transition-all duration-300"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <img
+                src={isHovered ? messageimgwhite : messageimg}
+                alt="Message"
+                className="h-6 w-6"
+              />
+              Message
+            </button>
 
           </div>
 

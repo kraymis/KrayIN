@@ -137,6 +137,22 @@ const getPostsByUserId = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+// Delete a post
+const deletePost = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    await post.deleteOne();
+
+    res.status(200).json({ message: 'Post deleted' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
 
-module.exports = { createPost, getPosts, likePost, unlikePost, addComment,getPostsByUserId };
+module.exports = { createPost, getPosts, likePost, unlikePost, addComment,getPostsByUserId,deletePost };

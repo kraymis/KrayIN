@@ -41,7 +41,7 @@ const UserSearch = () => {
   };
 
   return (
-    <div className="relative border-0 rounded-2xl w-[60vw] max-w-md mx-auto">
+    <div className="relative border-0 rounded-2xl w-[35vw] mx-auto">
       <div className="bg-[#f0f0ff] border-0 rounded-2xl">
         <input
           type="text"

@@ -47,7 +47,7 @@ const Home = () => {
     };
   
     fetchData();
-  }, [navigate,functionCompleted]);
+  }, [navigate,functionCompleted,posts]);
 
   const handleLogout = async () => {
     try {

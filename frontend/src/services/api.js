@@ -260,3 +260,17 @@ export const searchUsers = async (query) => {
         throw error;
     }
 };
+export const deletePost = async (postId) => {
+    try {
+        const response = await axios.delete(`${API_URL}/posts/${postId}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+        console.log("Post deelted")
+        return response.data;
+    } catch (error) {
+        console.error('Delete post error:', error);
+        throw error;
+    }
+};
