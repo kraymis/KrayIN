@@ -71,7 +71,7 @@ const Chat = ({ socket, user }) => {
       socket.off('chatMessage');
       socket.off('previousMessages');
     };
-  }, [socket, user.id, activeFriend]);
+  }, [socket, user.id, activeFriend,messages]);
 
 
   const formatDate = (dateString) => {
