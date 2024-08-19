@@ -45,12 +45,10 @@ io.use((socket, next) => {
 // Socket.io connection handling
 
 io.on('connection', (socket) => {
-    console.log('A user connected:', socket.user);
 
     socket.on('joinRoom', ({ userId1, userId2 }) => {
         const roomId = [userId1, userId2].sort().join('_');
         socket.join(roomId);
-        console.log(`${socket.user.name} joined room: ${roomId}`);
 
         // Send previous messages to the user when they join the room
         Message.find({ roomId })
@@ -80,7 +78,6 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-        console.log('User disconnected');
     });
 });
 

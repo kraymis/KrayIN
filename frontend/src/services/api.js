@@ -18,7 +18,6 @@ export const login = async (userData) => {
         if (response.data.token) {
             localStorage.setItem('token', response.data.token);
         }
-        console.log('Token:', response.data.token);
         return response.data;
     } catch (error) {
         console.error('Login error:', error);
@@ -163,7 +162,6 @@ export const deleteFriend = async (friendId) => {
         });
         return response.data;
     } catch (error) {
-        console.log(friendId)
         console.error('Delete friend error:', error);
         throw error;
     }
@@ -267,7 +265,6 @@ export const deletePost = async (postId) => {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
         });
-        console.log("Post deelted")
         return response.data;
     } catch (error) {
         console.error('Delete post error:', error);

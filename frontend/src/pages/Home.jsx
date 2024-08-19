@@ -9,6 +9,7 @@ import UserGreeting from '../components/UserGreeting'; // Adjust the path if nec
 // import UserGreeting from '../components/UserGreeting'; // Adjust the path if necessary
 import Navbar from '../components/NavBar';
 import CreatePostForm from '../components/CreatePostForm';
+import Footer from '../components/Footer';
 
 const Home = () => {
   const [user, setUser] = useState(null);
@@ -27,12 +28,10 @@ const Home = () => {
         // Fetch user data
         const userData = await getUserData();
         setUser(userData);
-        console.log(userData.id);
   
         // Fetch posts with user ID
         const postsData = await getPosts(userData.id);
         setPosts(postsData);
-        console.log(postsData);
 
         const friendsData = await getFriends();
         setFriends(friendsData);
@@ -96,9 +95,6 @@ const Home = () => {
   
   const handleDeleteFriend = async (friendId) => {
     try {
-      console.log("raana hna")
-      console.log(friendId);
-      console.log("raana hna")
       await deleteFriend(friendId);
       setFriends(friends.filter(friend => friend._id !== friendId));
     } catch (err) {
@@ -114,7 +110,6 @@ const Home = () => {
       setFriends([...friends, { _id: requesterId }]);  // Update friends list
     
     } catch (err) {
-      console.log(requesterId)
       console.error('Failed to accept friend request', err);
     }
   };
@@ -203,6 +198,7 @@ return (
                 />
       </div>
   </div>
+  <Footer/>
   </>
 );
 };

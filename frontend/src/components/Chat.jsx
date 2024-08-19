@@ -44,7 +44,6 @@ const Chat = ({ socket, user }) => {
     scrollToBottom();
   
     fetchFriends();
-    console.log("use effect ran");
 
   
     socket.on('chatMessage', (msg) => {
@@ -55,7 +54,6 @@ const Chat = ({ socket, user }) => {
           updatedMessages.set(msg.roomId, []);
         }
         updatedMessages.get(msg.roomId).push(msg);
-        console.log("here's it",updatedMessages);
         return updatedMessages;
       });
     });
@@ -98,30 +96,54 @@ const Chat = ({ socket, user }) => {
     socket.emit('getPreviousMessages', roomId);
   };
 let counter = 0;
-  const sendMessage = () => {
+const sendMessage = () => {
+  const roomId = [user.id, activeFriend].sort().join('_');
+  socket.emit('chatMessage', { roomId, message });
 
-    const roomId = [user.id, activeFriend].sort().join('_');
-    socket.emit('chatMessage', { roomId, message });
-    console.log(messages);
-    // Update local messages state with the new message
-    setMessages(prevMessages => {
-    //   console.log(prevMessages);
-      const updatedMessages = new Map(prevMessages);
-    //   console.log(updatedMessages);
-      if (!updatedMessages.has(roomId)) {
-        updatedMessages.set(roomId, []);
-      }
-    //   console.log(updatedMessages);
-      updatedMessages.get(roomId).push({
-        sender: user.id,
-        content: message,
-        timestamp: new Date().toISOString()
-      });
-      return updatedMessages;
+  // Update local messages state with the new message
+  setMessages(prevMessages => {
+    const updatedMessages = new Map(prevMessages);
+    console.log(prevMessages);
+
+    if (!updatedMessages.has(roomId)) {
+      updatedMessages.set(roomId, []);
+    }
+
+    // Push the new message
+    updatedMessages.get(roomId).push({
+      sender: user.id,
+      content: message,
+      timestamp: new Date().toISOString()
     });
-  
-    setMessage('');
-  };
+
+    // Remove duplicate messages with the same content and timestamp
+    const messagesInRoom = updatedMessages.get(roomId);
+    const filteredMessages = messagesInRoom.filter((msg, index) => {
+      const currentMsg = messagesInRoom[index];
+      const nextMsg = messagesInRoom[index + 1];
+      if (nextMsg && currentMsg.content === nextMsg.content) {
+      const currentTimestamp = new Date(currentMsg.timestamp);
+      const nextTimestamp = new Date(nextMsg.timestamp);
+      if (
+        currentTimestamp.getHours() === nextTimestamp.getHours() &&
+        currentTimestamp.getMinutes() === nextTimestamp.getMinutes() &&
+        currentTimestamp.getSeconds() === nextTimestamp.getSeconds()
+      ) {
+        return false; // Remove the duplicate message
+      }
+      }
+      return true;
+    });
+    updatedMessages.set(roomId, filteredMessages);
+
+    // Remove the last message to prevent duplication
+
+    return updatedMessages;
+  });
+
+  setMessage('');
+};
+
   
 
   const handleSearch = async (query) => {

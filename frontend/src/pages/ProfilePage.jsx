@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'; // Import the useParams hook
 import axios from 'axios';
 import img from "../assets/profile.png"; // Default profile image
-import { sendFriendRequest, getPostsByUserId, likePost, unlikePost, addComment,getFriends } from '../services/api';
+import { sendFriendRequest, getPostsByUserId, likePost, unlikePost, addComment,getFriends ,getUserData} from '../services/api';
 import Post from '../components/Post';
 import Navbar from '../components/NavBar';
 import { logout } from '../services/api';
@@ -20,6 +20,8 @@ const ProfilePage = ({ currentUser }) => {
   const { userId } = useParams(); // Use useParams to get userId from URL
   const [friends, setFriends] = useState([]);
   const [isHovered, setIsHovered] = useState(false);
+  const API_URL = 'http://localhost:5000';
+
 
   
 
@@ -28,7 +30,7 @@ const ProfilePage = ({ currentUser }) => {
       try {
         const userPosts = await getPostsByUserId(userId);
         setPosts(userPosts);
-        const response = await axios.get(`http://localhost:5000/api/users/${userId}`);
+        const response = await axios.get(`${API_URL}/api/users/${userId}`);
         setUser(response.data);
         setIsCurrentUser(currentUser.id === userId);
         setIsFriend(response.data.friends.includes(currentUser.id));
@@ -81,9 +83,6 @@ const ProfilePage = ({ currentUser }) => {
   };
   const handleDeleteFriend = async (friendId) => {
     try {
-      console.log("raana hna")
-      console.log(friendId);
-      console.log("raana hna")
       await deleteFriend(friendId);
       setFriends(friends.filter(friend => friend._id !== friendId));
     } catch (err) {

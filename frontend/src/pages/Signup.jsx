@@ -16,7 +16,6 @@ const Signup = () => {
         try {
             const userData = { name, email, password };
             const response = await signup(userData);
-            console.log('Signup successful:', response);
             navigate('/login');
         } catch (error) {
             console.error('Signup failed:', error.response.data);

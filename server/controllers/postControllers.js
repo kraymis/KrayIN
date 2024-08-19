@@ -120,7 +120,6 @@ const getPostsByUserId = async (req, res) => {
   const { userId } = req.params;
 
   try {
-    console.log(userId);
     const posts = await Post.find({ user: userId })
       .populate('user', 'name')
       .populate({

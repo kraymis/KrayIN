@@ -15,7 +15,6 @@ const Login = () => {
         try {
             const userData = { email, password };
             const response = await login(userData);
-            console.log('Login successful:', response);
             localStorage.setItem('token', response.token); // Store the token
             navigate('/');
         } catch (error) {
