@@ -197,8 +197,8 @@ return (
                   onRejectFriendRequest={handleRejectFriendRequest}
                 />
       </div>
-  </div>
   <Footer/>
+  </div>
   </>
 );
 };
