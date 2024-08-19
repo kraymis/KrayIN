@@ -20,7 +20,7 @@ const ProfilePage = ({ currentUser }) => {
   const { userId } = useParams(); // Use useParams to get userId from URL
   const [friends, setFriends] = useState([]);
   const [isHovered, setIsHovered] = useState(false);
-  const API_URL = 'http://localhost:5000';
+  const API_URL = 'https://jwtapp-backend.onrender.com';
 
 
   
