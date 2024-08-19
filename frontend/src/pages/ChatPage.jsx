@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import Chat from '../components/Chat';
 import imggauche from '../assets/gauche.png';
 
-const socket = io('https://jwt-app-two.vercel.app', {
+const socket = io('http://localhost:5000', {
   auth: { token: localStorage.getItem('token') }
 });
 
