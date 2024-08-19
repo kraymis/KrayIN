@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://jwt-app-one.vercel.app/';
+const API_URL = 'https://jwt-app-two.vercel.app/api';
 
 export const signup = async (userData) => {
     try {

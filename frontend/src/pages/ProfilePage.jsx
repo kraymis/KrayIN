@@ -20,7 +20,7 @@ const ProfilePage = ({ currentUser }) => {
   const { userId } = useParams(); // Use useParams to get userId from URL
   const [friends, setFriends] = useState([]);
   const [isHovered, setIsHovered] = useState(false);
-  const API_URL = 'https://jwt-app-one.vercel.app/';
+  const API_URL = 'https://jwt-app-two.vercel.app';
 
 
   
@@ -83,6 +83,7 @@ const ProfilePage = ({ currentUser }) => {
   };
   const handleDeleteFriend = async (friendId) => {
     try {
+      console.log(friendId);
       await deleteFriend(friendId);
       setFriends(friends.filter(friend => friend._id !== friendId));
     } catch (err) {

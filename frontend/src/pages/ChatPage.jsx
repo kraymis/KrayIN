@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import io from 'socket.io-client';
 import Chat from '../components/Chat';
+import imggauche from '../assets/gauche.png';
 
-const socket = io('https://jwt-app-one.vercel.app/', {
+const socket = io('https://jwt-app-two.vercel.app', {
   auth: { token: localStorage.getItem('token') }
 });
 
