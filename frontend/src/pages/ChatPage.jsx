@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import io from 'socket.io-client';
 import Chat from '../components/Chat';
 
-const socket = io('http://localhost:5000', {
+const socket = io('https://jwt-app-one.vercel.app/', {
   auth: { token: localStorage.getItem('token') }
 });
 
