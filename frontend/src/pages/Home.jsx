@@ -198,7 +198,6 @@ return (
                 />
       </div>
   </div>
-  <Footer/>
   </>
 );
 };
