@@ -130,7 +130,8 @@ const Home = () => {
 return (
   <>
   <Navbar onLogout={handleLogout}/>
-  <div className="flex items-start justify-center bg-[#0f0822] h-screen w-full">
+  <div className='flex flex-col h-screen w-full'>
+  <div className="flex items-start justify-center bg-[#0f0822] w-full">
   <div className="w-[25vw] ml-4">
                 <FriendsList
                   friends={friends}
@@ -197,8 +198,10 @@ return (
                   onRejectFriendRequest={handleRejectFriendRequest}
                 />
       </div>
+  </div>
   <Footer/>
   </div>
+
   </>
 );
 };
