@@ -5,6 +5,9 @@
 
 body {
   font-family: 'Poppins', sans-serif;
+    background-color: #0f0822;
+    min-height: 100vh;
+
 }
 html {
   scroll-behavior: smooth;
